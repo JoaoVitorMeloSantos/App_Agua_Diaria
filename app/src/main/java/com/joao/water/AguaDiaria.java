@@ -5,17 +5,16 @@ import java.util.List;
 
 public class AguaDiaria {
 
+    private int peso;
+    private int volumeCopo;
     private List<Copo> copos;
-    private float litrosNecessarios;
 
-    public AguaDiaria(float peso, float volumeCopo) {
-        float mililitrosNecessarios = peso * 35;
-        this.litrosNecessarios = mililitrosNecessarios / 1000;
-
-        int numCopos = (int) Math.ceil(litrosNecessarios / volumeCopo);
-        copos = new ArrayList<>();
-
-        for (int i = 0; i < numCopos; i++) {
+    public AguaDiaria(int peso, int volumeCopo) {
+        this.peso = peso;
+        this.volumeCopo = volumeCopo;
+        this.copos = new ArrayList<>();
+        int quantidadeCopos = (int) Math.ceil(peso * 35.0 / volumeCopo);
+        for (int i = 0; i < quantidadeCopos; i++) {
             copos.add(new Copo(volumeCopo));
         }
     }
@@ -24,23 +23,32 @@ public class AguaDiaria {
         return copos;
     }
 
-    public float litrosBebidosAteAgora() {
-        float litrosBebidos = 0;
-        for (Copo copo : copos) {
-            if (!copo.isCheio()) {
-                litrosBebidos += copo.getVolume();
-            }
-        }
-        return litrosBebidos;
+    public int getPeso() {
+        return peso;
     }
 
-    public List<Copo> getCoposFaltando() {
-        List<Copo> coposFaltando = new ArrayList<>();
+    public float getVolumeTotal() {
+        return peso * 35.0f; // Total volume needed in ml
+    }
+
+    public float getQuantidadeBebida() {
+        float total = 0;
         for (Copo copo : copos) {
             if (copo.isCheio()) {
-                coposFaltando.add(copo);
+                total += copo.getVolume();
             }
         }
-        return coposFaltando;
+        return total;
+    }
+
+    public void reset() {
+        for (Copo copo : copos) {
+            copo.desbeber();
+        }
     }
 }
+
+
+
+
+

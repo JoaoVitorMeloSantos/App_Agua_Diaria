@@ -2,35 +2,30 @@ package com.joao.water;
 
 public class Copo {
 
-    private float volume;
     private boolean cheio;
+    private int volume;
 
-    public Copo(float volume) {
+    public Copo(int volume) {
         this.volume = volume;
-        this.cheio = true;
-    }
-
-    public void beber() {
-        if (cheio) {
-            cheio = false;
-        } else {
-            System.out.println("O copo já está vazio.");
-        }
-    }
-
-    public void desbeber() {
-        if (!cheio) {
-            cheio = true;
-        } else {
-            System.out.println("O copo já está cheio.");
-        }
+        this.cheio = false;
     }
 
     public boolean isCheio() {
         return cheio;
     }
 
-    public float getVolume() {
+    public void beber() {
+        cheio = true;
+    }
+
+    public void desbeber() {
+        cheio = false;
+    }
+
+    public int getVolume() {
         return volume;
     }
 }
+
+
+
